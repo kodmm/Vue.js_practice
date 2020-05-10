@@ -7,14 +7,14 @@
 </head>
 <body>
     <div id="app">
-        {{ message }}
+        <p v-if ="error">Error</p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
         const app = new Vue({
             el: "#app",
             data: {
-                message: "SMAP"
+                error: true
             }
         });
     </script>
