@@ -1,28 +1,49 @@
 <template>
-  <div>
+  <div class="container">
     {{ msg }}
-    <form>
-      <button @click="addTodo()">ADD TASK</button>
-      <button @click="removeTodo()">DELETE FINISHED TASKS</button>
-      <p>input: <input type="text" v-model="newTodo"></p>
-      <p>task: {{ newTodo }}</p>
-    </form>
-    <div class="task-list">
-     <label class="task-list_item"
-            v-for="todo in todos"
-            v-bind:class="{ 'task-list_item--checked': todo.done}"
-     >
-            <input type="checkbox" v-model="todo.done">
-            <input type="checkbox" v-model="todo.editing">
-            <input v-if="todo.editing" v-model="todo.text" @keyup.enter="todo.editing = !todo.editing">
-            <span v-else>{{ todo.text }}</span>
-      </label>
+    <div class="left-containter">
+      <form>
+        <button @click="addTodo()">ADD TASK</button>
+        <button @click="removeTodo()">DELETE FINISHED TASKS</button>
+        <p>input: <input type="text" v-model="newTodo"></p>
+        <p>task: {{ newTodo }}</p>
+      </form>
+      <div class="task-list">
+      <label class="task-list_item"
+              v-for="todo in todos"
+              v-bind:class="{ 'task-list_item--checked': todo.done}"
+      >
+              <input type="checkbox" v-model="todo.done">
+              <input type="checkbox" v-model="todo.editing">
+              <input v-if="todo.editing" v-model="todo.text" @keyup.enter="todo.editing = !todo.editing">
+              <span v-else>{{ todo.text }}</span>
+        </label>
+        
+      </div>
+    </div>
+    <div class="center-container">
+        <Timeline
+           id="twitterdev"
+           sourceType="profile"
+           :options="{tweetLimit: '3'}"
+        />
+    </div>
+    <div class="right-container">
+        <Timeline
+           id="webcamp_io"
+           sourceType="profile"
+           :options="{tweetLimit: '3'}"
+        />
     </div>
   </div>
 </template>
 
 <script>
+import { Timeline } from 'vue-tweet-embed';
   export default {
+    components: {
+      Timeline
+    },
     name: 'hello',
     data () {
       return {
@@ -66,6 +87,10 @@
   display: -ms-flex;
   display: -o-flex;
 }
+.container {
+  display: flex;
+   flex-flow: row wrap;
+}
 .task-list {
   @include flex-vender;
   flex-direction: column;
@@ -80,5 +105,10 @@
       color: #85a6c6;
     }
   }
+}
+.TwitterContainer {
+  @include flex-vender;
+  flex-direction: column;
+  align-items: right;
 }
 </style>
